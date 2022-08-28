@@ -6,11 +6,14 @@ const tokens = (n)=> {
 }
 
 describe("Token", ()=> {
-	let token
+	let token, accounts, deployer
 
 	beforeEach(async() => {
 		const Token = await ethers.getContractFactory('Token')
 		token = await Token.deploy('Leverage', 'LVE', 1000000)
+
+		accounts = await ethers.getSigners()
+		deployer = accounts[0]
 	})
 
 	describe("Deployment", () => {
@@ -35,5 +38,11 @@ describe("Token", ()=> {
 			expect(await token.totalSupply()).to.equal(totalSupply)
 
 		})
+		it("assigns total supply to the deployer", async () => {
+			console.log(deployer.address)
+			expect(await token.balanceOf(deployer.address)).to.equal(totalSupply)
+
+		})
+
 	})
 })
