@@ -72,7 +72,6 @@ contract Token {
 		public
 		returns (bool success)
 	{
-		console.log(_from, _to, _value);
 		require(_value <= balanceOf[_from]);
 		require(_value <= allowance[_from][msg.sender]);
 
