@@ -28,5 +28,20 @@
       "address": "0xE158f6dc654B74FaEf07aEaAE04DBFc693CF0cc1"
     },
     "explorerURL": "https://goerli.etherscan.io/"
+  },
+  "80001": {
+    "exchange": {
+      "address": "0xE158f6dc654B74FaEf07aEaAE04DBFc693CF0cc1"
+    },
+    "LVG": {
+      "address": "0xc94a36C5c4BBafd67b224d1609ed372F44ADb25f"
+    },
+    "mETH": {
+      "address": "0xDC26b3332EC7E645D1dB1f2eb44fff8e713bBeCF"
+    },
+    "mDAI": {
+      "address": "0x865FD7d0F595D610CB7608A35b8754Ab736571e5"
+    },
+    "explorerURL": "https://goerli.etherscan.io/"
   }
 }
