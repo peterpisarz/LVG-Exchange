@@ -93,13 +93,13 @@ const decorateMyOpenOrder = (order, tokens) => {
 const decorateOrder = (order, tokens) => {
   let token0Amount, token1Amount
 
-  // Note: DApp should be considered token0, mETH is considered token1
-  // Example: Giving mETH in exchange for DApp
+  // Note: LVG should be considered token0, mETH is considered token1
+  // Example: Giving mETH in exchange for LVG
   if (order.tokenGive === tokens[1].address) {
-    token0Amount = order.amountGive // The amount of DApp we are giving
+    token0Amount = order.amountGive // The amount of LVG we are giving
     token1Amount = order.amountGet // The amount of mETH we want...
   } else {
-    token0Amount = order.amountGet // The amount of DApp we want
+    token0Amount = order.amountGet // The amount of LVG we want
     token1Amount = order.amountGive // The amount of mETH we are giving...
   }
 
