@@ -75,6 +75,7 @@ async function main() {
   transaction = await exchange.connect(user1).makeOrder(mETH.address, tokens(100), LVG.address, tokens(5))
   result = await transaction.wait()
   console.log(`Made order from ${user1.address}`)
+  console.log(result.events[0])
 
   // User 1 cancels order
   orderId = result.events[0].args.id

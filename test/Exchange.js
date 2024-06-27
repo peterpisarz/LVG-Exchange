@@ -11,6 +11,7 @@ describe('Exchange', () => {
   const feePercent = 10
 
   beforeEach(async () => {
+    console.log(tokens(100))
     const Exchange = await ethers.getContractFactory('Exchange')
     const Token = await ethers.getContractFactory('Token')
 
