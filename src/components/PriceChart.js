@@ -42,7 +42,7 @@ const PriceChart = () => {
       </div>
 
       {!account ? (
-        <Banner text={'Please connect with Metamask'} />
+        <Banner text={'Please connect to Sepolia testnet with Metamask'} />
       ) : (
         <Chart
           type="candlestick"
