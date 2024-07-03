@@ -98,7 +98,7 @@ contract Exchange {
 	) public {
 
     	//Prevent orders if tokens aren't on exchange
-    	require(balanceOf(_tokenGive, msg.sender) >= _amountGive);
+    	require(balanceOf(_tokenGive, msg.sender) >= _amountGive, "Low liquidity");
 
     	orderCount++;
 

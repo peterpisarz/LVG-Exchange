@@ -18,6 +18,10 @@ module.exports = {
     mumbai: {
       url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
       accounts: privateKeys.split(','),
+    },
+    base: {
+      url: `https://base-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
+      accounts: privateKeys.split(','),
     }
   },
 };

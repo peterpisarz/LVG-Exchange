@@ -27,6 +27,17 @@ async function main() {
   const mDAI = await ethers.getContractAt('Token', config[chainId].mDAI.address)
   console.log(`mDAI Token fetched: ${mDAI.address}\n`)
 
+  const isMeth = false
+  let token
+
+  if (isMeth) {
+    token = mETH
+    console.log("Swapping for Meth!")
+  } else {
+    token = mDAI
+    console.log("Swapping for mDAI")
+  }
+
   // Fetch the deployed exchange
   const exchange = await ethers.getContractAt('Exchange', config[chainId].exchange.address)
   console.log(`Exchange fetched: ${exchange.address}\n`)
@@ -36,9 +47,9 @@ async function main() {
   const receiver = accounts[1]
   let amount = tokens(10000)
 
-  // user1 transfers 10,000 mETH...
+  // user1 transfers 10,000 token...
   let transaction, result
-  transaction = await mETH.connect(sender).transfer(receiver.address, amount)
+  transaction = await token.connect(sender).transfer(receiver.address, amount)
   console.log(`Transferred ${amount} tokens from ${sender.address} to ${receiver.address}\n`)
 
   // Set up exchange users
@@ -56,13 +67,13 @@ async function main() {
   await transaction.wait()
   console.log(`Deposited ${amount} Ether from ${user1.address}\n`)
 
-  // User 2 Approves mETH
-  transaction = await mETH.connect(user2).approve(exchange.address, amount)
+  // User 2 Approves token
+  transaction = await token.connect(user2).approve(exchange.address, amount)
   await transaction.wait()
   console.log(`Approved ${amount} tokens from ${user2.address}`)
 
-  // User 2 Deposits mETH
-  transaction = await exchange.connect(user2).depositToken(mETH.address, amount)
+  // User 2 Deposits token
+  transaction = await exchange.connect(user2).depositToken(token.address, amount)
   await transaction.wait()
   console.log(`Deposited ${amount} tokens from ${user2.address}\n`)
 
@@ -72,7 +83,7 @@ async function main() {
 
   // User 1 makes order to get tokens
   let orderId
-  transaction = await exchange.connect(user1).makeOrder(mETH.address, tokens(100), LVG.address, tokens(5))
+  transaction = await exchange.connect(user1).makeOrder(token.address, tokens(100), LVG.address, tokens(5))
   result = await transaction.wait()
   console.log(`Made order from ${user1.address}`)
   console.log(result.events[0])
@@ -91,7 +102,7 @@ async function main() {
   //
 
   // User 1 makes order
-  transaction = await exchange.connect(user1).makeOrder(mETH.address, tokens(100), LVG.address, tokens(10))
+  transaction = await exchange.connect(user1).makeOrder(token.address, tokens(100), LVG.address, tokens(10))
   result = await transaction.wait()
   console.log(`Made order from ${user1.address}`)
 
@@ -105,7 +116,7 @@ async function main() {
   await wait(1)
 
   // User 1 makes another order
-  transaction = await exchange.makeOrder(mETH.address, tokens(50), LVG.address, tokens(15))
+  transaction = await exchange.makeOrder(token.address, tokens(50), LVG.address, tokens(15))
   result = await transaction.wait()
   console.log(`Made order from ${user1.address}`)
 
@@ -119,7 +130,7 @@ async function main() {
   await wait(1)
 
   // User 1 makes final order
-  transaction = await exchange.connect(user1).makeOrder(mETH.address, tokens(200), LVG.address, tokens(20))
+  transaction = await exchange.connect(user1).makeOrder(token.address, tokens(200), LVG.address, tokens(20))
   result = await transaction.wait()
   console.log(`Made order from ${user1.address}`)
 
@@ -138,7 +149,7 @@ async function main() {
 
   // User 1 makes 10 orders
   for(let i = 1; i <= 10; i++) {
-    transaction = await exchange.connect(user1).makeOrder(mETH.address, tokens(10 * i), LVG.address, tokens(10))
+    transaction = await exchange.connect(user1).makeOrder(token.address, tokens(10 * i), LVG.address, tokens(10))
     result = await transaction.wait()
 
     console.log(`Made order from ${user1.address}`)
@@ -149,7 +160,7 @@ async function main() {
 
   // User 2 makes 10 orders
   for (let i = 1; i <= 10; i++) {
-    transaction = await exchange.connect(user2).makeOrder(LVG.address, tokens(10), mETH.address, tokens(10 * i))
+    transaction = await exchange.connect(user2).makeOrder(LVG.address, tokens(10), token.address, tokens(10 * i))
     result = await transaction.wait()
 
     console.log(`Made order from ${user2.address}`)
